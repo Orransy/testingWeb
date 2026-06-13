@@ -47,6 +47,9 @@ test.describe('ACTVN LOGIN TEST', () => {
         await clickLogin(page);
 
         await expect(page.url()).not.toContain('/account/welcome');
+        await expect(
+            page.getByText('Mật khẩu chưa đúng!')
+        ).toBeVisible();
     });
 
     // TC03
@@ -58,6 +61,9 @@ test.describe('ACTVN LOGIN TEST', () => {
         await clickLogin(page);
 
         await expect(page.url()).not.toContain('/account/welcome');
+        await expect(
+            page.getByText('Tên đăng nhập không tồn tại!')
+        ).toBeVisible();
     });
 
     // TC04
@@ -69,11 +75,19 @@ test.describe('ACTVN LOGIN TEST', () => {
         await clickLogin(page);
 
         await expect(page.url()).not.toContain('/account/welcome');
+        await expect(
+            page.getByText('Tên đăng nhập không tồn tại!')
+        ).toBeVisible();
     });
 
     // TC05
     test('Username rỗng', async ({ page }) => {
-
+        page.once('dialog', async dialog => {
+            expect(dialog.message())
+                .toContain('Bạn vui lòng nhập tên đăng nhập!');
+            await dialog.accept();
+        });
+        
         await page.fill('#txtLoginPassword', VALID_PASS);
 
         await clickLogin(page);
@@ -83,6 +97,11 @@ test.describe('ACTVN LOGIN TEST', () => {
 
     // TC06
     test('Password rỗng', async ({ page }) => {
+        page.once('dialog', async dialog => {
+            expect(dialog.message())
+                .toContain('mật khẩu');
+            await dialog.accept();
+        });
 
         await page.fill('#txtLoginUsername', VALID_USER);
 
@@ -93,6 +112,11 @@ test.describe('ACTVN LOGIN TEST', () => {
 
     // TC07
     test('Username và Password rỗng', async ({ page }) => {
+        page.once('dialog', async dialog => {
+            expect(dialog.message())
+                .toContain('tên đăng nhập');
+            await dialog.accept();
+        });
 
         await clickLogin(page);
 
@@ -108,6 +132,9 @@ test.describe('ACTVN LOGIN TEST', () => {
         await clickLogin(page);
 
         await expect(page.url()).not.toContain('/account/welcome');
+        await expect(
+            page.getByText('Tên đăng nhập không tồn tại!')
+        ).toBeVisible();
     });
 
     // TC09
@@ -119,6 +146,9 @@ test.describe('ACTVN LOGIN TEST', () => {
         await clickLogin(page);
 
         await expect(page.url()).not.toContain('/account/welcome');
+        await expect(
+            page.getByText('Tên đăng nhập không tồn tại!')
+        ).toBeVisible();
     });
 
     // TC11
@@ -130,6 +160,9 @@ test.describe('ACTVN LOGIN TEST', () => {
         await clickLogin(page);
 
         await expect(page.url()).not.toContain('/account/welcome');
+        await expect(
+            page.getByText('Mật khẩu chưa đúng!')
+        ).toBeVisible();
     });
 
     // TC12
@@ -141,6 +174,9 @@ test.describe('ACTVN LOGIN TEST', () => {
         await clickLogin(page);
 
         await expect(page.url()).not.toContain('/account/welcome');
+        await expect(
+            page.getByText('Mật khẩu chưa đúng!')
+        ).toBeVisible();
     });
 
     // TC10
@@ -152,6 +188,9 @@ test.describe('ACTVN LOGIN TEST', () => {
         await clickLogin(page);
 
         await expect(page.url()).not.toContain('/account/welcome');
+        await expect(
+            page.getByText('Tên đăng nhập không tồn tại!')
+        ).toBeVisible();
     });
 
     // TC13
@@ -163,6 +202,9 @@ test.describe('ACTVN LOGIN TEST', () => {
         await clickLogin(page);
 
         await expect(page.url()).not.toContain('/account/welcome');
+        await expect(
+            page.getByText('Mật khẩu chưa đúng!')
+        ).toBeVisible();
     });
 
     // TC14
